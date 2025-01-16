@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riddle Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+    <script src="js/scripts.js" defer></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <nav class="bg-white shadow">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <img class="h-8 w-auto" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo">
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="#" class="border-custom text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Categories</a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Recent</a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <button id="generate-riddle" class="!rounded-button bg-custom text-white px-4 py-2 text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom">
+                        <i class="fas fa-magic mr-2"></i>Generate Riddle
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 gap-8">
+            <section class="text-center">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">Generate Fun Riddles</h1>
+                <p class="text-xl text-gray-600 mb-8">Choose a category and let the magic begin!</p>
+            </section>
+
+            <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="category-card bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200">
+                    <i class="fas fa-brain text-custom text-2xl mb-4"></i>
+                    <h3 class="font-medium text-gray-900">Logic</h3>
+                </div>
+                <div class="category-card bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200">
+                    <i class="fas fa-laugh-beam text-custom text-2xl mb-4"></i>
+                    <h3 class="font-medium text-gray-900">Funny</h3>
+                </div>
+                <div class="category-card bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200">
+                    <i class="fas fa-graduation-cap text-custom text-2xl mb-4"></i>
+                    <h3 class="font-medium text-gray-900">Educational</h3>
+                </div>
+                <div class="category-card bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200">
+                    <i class="fas fa-ghost text-custom text-2xl mb-4"></i>
+                    <h3 class="font-medium text-gray-900">Spooky</h3>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">Your Generated Riddle</h2>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6 mb-4">
+                    <p class="text-lg text-gray-800 mb-4" id="riddle-text">"I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?"</p>
+                    <p class="text-gray-600 italic" id="riddle-answer">Answer: An echo</p>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex space-x-2">
+                        <button id="copy-riddle" class="!rounded-button bg-gray-100 text-gray-700 px-4 py-2 text-sm font-medium hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                            <i class="fas fa-copy mr-2"></i>Copy
+                        </button>
+                        <button id="share-riddle" class="!rounded-button bg-custom text-white px-4 py-2 text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom">
+                            <i class="fas fa-share-alt mr-2"></i>Share
+                        </button>
+                    </div>
+                    <span class="text-sm text-gray-500" id="riddle-category">Category: Logic</span>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Recent Riddles</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="recent-riddles">
+                    <!-- Recent riddles will be dynamically added here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+                <div class="text-sm text-gray-500">
+                    © 2024 Riddle Generator. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
